@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json({a: 1});
+  res.json({success: "The app is running!"});
 });
 
 router.get('/favicon.ico', (req, res) => {

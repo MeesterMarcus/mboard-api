@@ -3,6 +3,7 @@ var Board = require('../schemas/board.schema');
 
 exports.createBoard = createBoard;
 exports.getBoard = getBoard;
+exports.insertColumn = insertColumn;
 
 async function createBoard(boardId) {
 
@@ -21,4 +22,14 @@ async function getBoard(boardId) {
     console.log(boardId);
     return Board.findOne({boardId: boardId});
 
+}
+
+async function insertColumn(boardId, column) {
+    Board.findOneAndUpdate(
+        {boardId: boardId},
+        {$push: {'columns': column}},
+        (res) => {
+            console.log(res);
+        }
+    );
 }

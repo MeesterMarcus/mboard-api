@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const cors = require("cors");
-const { createBoard, insertColumn, getBoard } = require('../factories/board.factory');
+const { createBoard, insertColumn, getBoard, insertTask } = require('../factories/board.factory');
 router.use(cors());
 
 /* GET home page. */
@@ -11,14 +11,21 @@ router.get('/', function(req, res, next) {
 
 router.post('/board', function(req,res,next) {
   console.log(req.body);
-  createBoard(req.body.id);
+  createBoard(req.body.boardId);
   res.json({success: "You are successfully calling POST /board"});
 });
 
 router.post('/board/columns', function(req,res,next) {
   console.log(req.body);
   insertColumn(req.body.boardId, req.body.column);
-  res.json({success: "You are successfully calling PUT /board"});
+  res.json({success: "You are successfully calling POST(update) /board"});
+});
+
+router.post('/board/tasks', async function(req,res,next) {
+  console.log(req.body);
+  const result = await insertTask(req.body.boardId, req.body.columnId, req.body.task);
+  console.log('insertTaskResult:', result);
+  res.json({success: "You are successfully calling POST /tasks"});
 });
 
 router.get('/board', async function(req,res,next) {

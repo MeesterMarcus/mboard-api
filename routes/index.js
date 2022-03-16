@@ -10,21 +10,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/board', function(req,res,next) {
-  console.log(req.body);
   createBoard(req.body.boardId);
   res.json({success: "You are successfully calling POST /board"});
 });
 
 router.post('/board/columns', function(req,res,next) {
-  console.log(req.body);
   insertColumn(req.body.boardId, req.body.column);
   res.json({success: "You are successfully calling POST(update) /board"});
 });
 
 router.post('/board/tasks', async function(req,res,next) {
-  console.log(req.body);
-  const result = await insertTask(req.body.boardId, req.body.columnId, req.body.task);
-  console.log('insertTaskResult:', result);
+  await insertTask(req.body.boardId, req.body.columnId, req.body.task);
   res.json({success: "You are successfully calling POST /tasks"});
 });
 

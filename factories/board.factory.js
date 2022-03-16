@@ -36,10 +36,6 @@ async function insertColumn(boardId, column) {
 }
 
 async function insertTask(boardId, columnId, task) {
-    console.log('inside insertTask');
-    console.log('boardId:', boardId);
-    console.log('columnId:', columnId);
-    console.log('task:', task);
     Board.findOneAndUpdate(
         { 
             boardId: boardId,

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const cors = require("cors");
-const { createBoard } = require('../factories/board.factory');
+const { createBoard, getBoard } = require('../factories/board.factory');
 router.use(cors());
 
 /* GET home page. */
@@ -12,7 +12,12 @@ router.get('/', function(req, res, next) {
 router.post('/board', function(req,res,next) {
   console.log(req.body);
   createBoard(req.body.id);
-  res.json({success: "You are successfully calling /board"});
+  res.json({success: "You are successfully calling POST /board"});
+});
+
+router.get('/board', async function(req,res,next) {
+  const result = await getBoard(req.query.boardId);
+  res.json({data: result});
 });
 
 router.get('/favicon.ico', (req, res) => {

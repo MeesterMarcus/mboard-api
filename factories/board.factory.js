@@ -2,6 +2,7 @@ require('mongoose');
 var Board = require('../schemas/board.schema');
 
 exports.createBoard = createBoard;
+exports.getBoard = getBoard;
 
 async function createBoard(boardId) {
 
@@ -13,5 +14,11 @@ async function createBoard(boardId) {
         if (err) return console.error(err);
         console.log(board.boardId + " saved to mboards collection.");
     });
+
+}
+
+async function getBoard(boardId) {
+    console.log(boardId);
+    return Board.findOne({boardId: boardId});
 
 }

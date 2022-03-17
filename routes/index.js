@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const cors = require("cors");
-const { createBoard, insertColumn, getBoard, insertTask } = require('../factories/board.factory');
+const { createBoard, insertColumn, getBoard, insertTask, updateTask, removeTask } = require('../factories/board.factory');
 router.use(cors());
 
 /* GET home page. */
@@ -26,7 +26,14 @@ router.post('/board/tasks', async function(req,res,next) {
 
 router.put('/board/tasks', async function(req,res,next) {
   console.log(req.body);
+  const result = await updateTask(req.body.boardId, req.body.task);
   res.json({success: "You are successfully calling PUT /tasks"});
+});
+
+router.delete('/board/tasks', async function(req,res,next) {
+  console.log(req.body);
+  const result = await removeTask(req.body.boardId, req.body.task);
+  res.json({success: "You are successfully calling DELETE /tasks"});
 });
 
 router.get('/board', async function(req,res,next) {

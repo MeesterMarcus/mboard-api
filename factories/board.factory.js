@@ -5,6 +5,8 @@ exports.createBoard = createBoard;
 exports.getBoard = getBoard;
 exports.insertColumn = insertColumn;
 exports.insertTask = insertTask;
+exports.updateTask = updateTask;
+exports.removeTask = removeTask;
 
 async function createBoard(boardId) {
     console.log("createBoard boardId:", boardId);
@@ -50,4 +52,35 @@ async function insertTask(boardId, columnId, task) {
             console.log(res);
         }
     );
+}
+
+async function updateTask(boardId, task) {
+    const taskId = task.id;
+    Board.findOne({boardId: boardId}, (err, board) => {
+        // first remove task from currrent
+        board.columns.forEach(col => {
+            col.tasks = col.tasks.filter(t => t.id !== taskId);
+        });
+        // then add to new
+        board.columns.forEach(col => {
+            if (col.id === task.status.columnId) {
+                col.tasks.push(task);
+            }
+        });
+        board.save((err) => {
+            console.log(err);
+        })
+    })
+}
+
+async function removeTask(boardId, task) {
+    const taskId = task.id;
+    Board.findOne({boardId: boardId}, (err, board) => {
+        board.columns.forEach(col => {
+            col.tasks = col.tasks.filter(t => t.id !== taskId);
+        });
+        board.save((err) => {
+            console.log(err);
+        })
+    })
 }

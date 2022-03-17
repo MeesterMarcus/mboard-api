@@ -24,6 +24,11 @@ router.post('/board/tasks', async function(req,res,next) {
   res.json({success: "You are successfully calling POST /tasks"});
 });
 
+router.put('/board/tasks', async function(req,res,next) {
+  console.log(req.body);
+  res.json({success: "You are successfully calling PUT /tasks"});
+});
+
 router.get('/board', async function(req,res,next) {
   const result = await getBoard(req.query.boardId);
   res.json({data: result});

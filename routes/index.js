@@ -9,9 +9,9 @@ router.get('/', function(req, res, next) {
   res.json({success: "The app is running!"});
 });
 
-router.post('/board', function(req,res,next) {
-  createBoard(req.body.boardId);
-  res.json({success: "You are successfully calling POST /board"});
+router.post('/board', async function(req,res,next) {
+  const result = await createBoard(req.body.boardId);
+  res.json({data: result});
 });
 
 router.post('/board/columns', function(req,res,next) {

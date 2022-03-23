@@ -12,7 +12,7 @@ var board = new Schema({
                     id: String,
                     title: String,
                     description: String,
-                    severity: String,
+                    severity: Number,
                     client: String,
                     status: { 
                         columnId: String, 
